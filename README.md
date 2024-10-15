@@ -1,16 +1,16 @@
-# Camera Calibration
+# Camera Calibration with Checkerboard and AprilTag
 
 *LiengHongky Oct 2024*
 
 ## Content:
 
-1. CalibrationontheCAM1(Checkerboard)
-2. CalibrationontheCAM2(AprilTag)
-3. Github:https://github.com/lienghongky/camera_calibration
+1. Calibration on theCAM1(Checkerboard)
+2. Calibration on theCAM2(AprilTag)
+3. Github: https://github.com/lienghongky/camera_calibration
 
-## 1. CalibrationontheCAM1(Checkerboard)
+## 1. Calibration on the CAM1(Checkerboard)
 
-#### DataInfo:
+#### Data Info:
 
 - Image type : Checkerboard
 - Size: 28mm x 28mm
@@ -64,7 +64,7 @@ Intrinsic matrix:
 		         [  0.           0.           1.        ]]
 ```
 
-**- Outputfiles:**
+**- Output files:**
 - /output/cam1/0001.png ....
 - /output/cam1/calib.npz
 - /output/cam1/undistorted.png
@@ -73,29 +73,29 @@ Intrinsic matrix:
 
 
 
-## 2. CalibrationontheCAM2(AprilTag)
+## 2. Calibration on the CAM2 (AprilTag)
 
-#### DataInfo:
+#### Data Info:
 
 - Image type : AprilTag
 - Tagsize: 21mm
 - Space: 6mm
 - Tag Spacing (ratio): 6/21 = 0.
 
-## 2.1 BuildingROS-KalibrDockerImages
+## 2.1 Building ROS-Kalibr Docker Images
 
-#### Makesuredockerisinstalled
+*Make sure docker is installed*
 
-#### Step1: clonekalibrrepo
+#### Step1: clone kalibr repo
 ```
 git clone https://github.com/ethz-asl/kalibr.git
 cd kalibr
 ```
-#### Step2: builddockerimage
+#### Step2: build docker image
 
 ```dockerbuild -t kalibr -f Dockerfile_ros1_20_ . ```
 
-#### Buildingcompletedwegotanewimagenamekalibr:
+#### Building completed we got a new image name kalibr:
 
 ```
 (base)user:kalibrlienghongky$dockerbuild-tkalibr-fDockerfile_ros1_20_04.
@@ -116,10 +116,10 @@ cd kalibr
 =>=>namingtodocker.io/library/kalibr 0 .0s
 Viewbuilddetails:docker-desktop://dashboard/build/desktop-linux/desktop-linux/hu4p6t911kpuqx02pbahucwwd
 (base)user$
-```
-## 2.2Spinupcontainer:
+``` 
+## 2.2 Spin up container:
 
-#### Step1:Runthecontainerwithimagewejustbuilt
+#### Step1: Run the container with image we just built
 
 ```
 FOLDER=/camera_calibration# change thisto rootdirectory of solution
@@ -131,15 +131,15 @@ dockerrun -it
  -v"$FOLDER:/data" kalibr
 ```
 
-#### Step2:LoadROSenvironmentvariables.
+#### Step2:Load ROS environment variables.
 
 ``` 
 sourcedevel/setup.bash 
 ```
 
-## 2.3CameraCalibration
+## 2.3 Camera Calibration
 
-#### Step1:createbagfromgivenimages
+#### Step1: create bag from given images
 
 - AprilTage images located at _/data/dataset/cam2/..._
 
@@ -152,7 +152,7 @@ rosrun kalibrkalibr_bagcreater --folder dataset/ --output-bag cam2.bag
 - topic:/cam2/image_raw, /cam2/image_raw
 
 
-#### Step2:create conf file and run calibration
+#### Step2: create conf file and run calibration
 
 **_- /conf/aprilgrid.yaml_**
 ```#yaml
@@ -162,7 +162,7 @@ rosrun kalibrkalibr_bagcreater --folder dataset/ --output-bag cam2.bag
     tagSize:0.021#Thesizeofasingletaginmeters(e.g.,88mm)
     tagSpacing:0.28571#Thespacebetweentagsasafractionoftag_size
 ```
-#### Step3:Run kalibr command
+#### Step3: Run kalibr command
 ```
 rosrun kalibr kalibr_calibrate_cameras
 --bag ./output/cam2/cam2.bag

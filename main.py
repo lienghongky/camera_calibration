@@ -7,7 +7,7 @@ rows = 6
 cols = 8
 
 
-criteria = (cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS, 28, 0.001)
+criteria = (cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS, 30, 0.001)
 objectPoints = np.zeros((rows * cols, 3), np.float32)
 objectPoints[:, :2] = np.mgrid[0:rows, 0:cols].T.reshape(-1, 2)
 
@@ -57,12 +57,12 @@ for i,path in enumerate(glob.glob('dataset/cam1/*.png')):
     h, w = img.shape[:2]
 
     # Obtain the new camera matrix and undistort the image
-    newCameraMtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+    newCameraMtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 0.5, (w, h))
     undistortedImg = cv2.undistort(img, mtx, dist, None, newCameraMtx)
 
     # Crop the undistorted image
-    # x, y, w, h = roi
-    # undistortedImg = undistortedImg[y:y + h, x:x + w]
+    x, y, w, h = roi
+    undistortedImg = undistortedImg[y:y + h, x:x + w]
     # save image 
     name = path.split('/')[-1]
     cv2.imwrite(f'output/cam1/undistorted_{name}.png', undistortedImg)
