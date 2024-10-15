@@ -1,5 +1,0 @@
-target_type: 'aprilgrid'
-tagRows: 6
-tagCols: 6
-tagSize: 0.021   # The size of a single tag in meters (e.g., 88mm)
-tagSpacing: 0.28571  # The space between tags as a fraction of tag_size

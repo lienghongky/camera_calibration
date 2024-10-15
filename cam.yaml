@@ -1,8 +1,0 @@
-cam0:
-  cam_overlaps: []
-  camera_model: pinhole-radtan  # Assuming a pinhole camera model
-  distortion_coeffs: [0, 0, 0, 0]  # Leave blank, Kalibr will estimate
-  distortion_model: radtan  # Radial-tangential distortion model
-  intrinsics: [500, 500, 320, 240]  # Approximate fx, fy, cx, cy values (Kalibr will refine)
-  resolution: [640, 480]  # Put your image resolution here (or the closest guess)
-  rostopic: /camera/image_raw  # Not needed when using images, so can be ignored

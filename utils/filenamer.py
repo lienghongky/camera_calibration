@@ -2,7 +2,7 @@ import os
 import time
 
 # Path to your dataset
-dataset_path = '/data/data/cam2'  # Update this to your dataset's path
+dataset_path = '/data/dataset/cam1'  # Update this to your dataset's path
 # Set starting timestamp (in seconds since epoch)
 start_time = time.time()
 
